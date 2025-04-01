@@ -13,8 +13,9 @@ public interface RentACat {
 			case SOLUTION:
 				return new RentACatSolution();
 			case MOCK:
-				// TODO: Return a mock object that emulates the behavior of a real object.
-				return null;
+				// TODO: Return a mock object that emulates the behavior of the real object, if you feel you need one.
+				RentACat spyRentACat = Mockito.spy(new RentACatImpl());
+				return spyRentACat;
 			default:
 				assert (false);
 				return null;

@@ -18,9 +18,19 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean returnCat(int id) {
-		// TODO: Fill in
-		return false;
-	}
+		Cat cat = getCat(id);
+        if (cat != null) {
+            if (cat.getRented()) {
+                cat.returnCat();
+                System.out.println("Welcome back, " + cat.getName() + "!");
+                return true;
+            } else {
+                System.out.println(cat.getName() + " is already here!");
+                return false;
+            }
+        }
+        return false;
+    }
 
 	/**
 	 * Rent a cat. This should call the .rentCat() method on the cat for the
@@ -33,9 +43,19 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean rentCat(int id) {
-		// TODO: Fill in
-		return false;
-	}
+		Cat cat = getCat(id);
+        if (cat != null) {
+            if (!cat.getRented()) {
+                cat.rentCat();
+                System.out.println(cat.getName() + " has been rented.");
+                return true;
+            } else {
+                System.out.println("Sorry, " + cat.getName() + " is not here!");
+                return false;
+            }
+        }
+        return false;
+    }
 
 	/**
 	 * Rename a cat. This calls the .renameCat(String) method on the cat for the
@@ -46,9 +66,14 @@ public class RentACatImpl implements RentACat {
 	 * @return true if cat exists, false otherwise
 	 */
 
-	public boolean renameCat(int id, String name) {
-		// TODO: Fill in
-		return false;
+	 @Override
+	 public boolean renameCat(int id, String name) {
+		Cat cat = getCat(id);
+        if (cat != null) {
+            cat.renameCat(name);
+            return true;
+        }
+        return false;
 	}
 
 	/**
@@ -62,9 +87,15 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public String listCats() {
-		// TODO: Fill in
-		return "WRITE CODE FOR THIS";
-	}
+		StringBuilder sb = new StringBuilder();
+        for (Cat cat : cats) {
+            if (!cat.getRented()) {
+                sb.append(cat.toString());
+                sb.append(System.lineSeparator());
+            }
+        }
+        return sb.toString();
+    }
 
 	/**
 	 * Given an id, return a reference to the specified cat if a cat with that ID

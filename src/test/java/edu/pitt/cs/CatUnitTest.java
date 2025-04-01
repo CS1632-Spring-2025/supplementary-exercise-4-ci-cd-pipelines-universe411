@@ -31,7 +31,7 @@ public class CatUnitTest {
 		// Passing InstanceType.IMPL as the first parameter will create a real cat using your CatImpl implementation.
 		// Passing InstanceType.MOCK as the first parameter will create a mock cat using Mockito.
 		// Which type is the correct choice for this unit test?  I'll leave it up to you.  The answer is in the Unit Testing Part 2 lecture. :)
-		// TODO: Fill in
+		c = Cat.createInstance(InstanceType.IMPL, 1, "Jennyanydots");
 	}
 
 	@After
@@ -52,7 +52,7 @@ public class CatUnitTest {
 	 */
 	@Test
 	public void testGetId() {
-		// TODO: Fill in
+		assertEquals("Cat ID should be 1", 1, c.getId());
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class CatUnitTest {
 	 */
 	@Test
 	public void testGetName() {
-		// TODO: Fill in
+		assertEquals("Cat name should be Jennyanydots", "Jennyanydots", c.getName());
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class CatUnitTest {
 	 */
 	@Test
 	public void testGetRented() {
-		// TODO: Fill in
+		assertFalse("Cat should not be rented initially", c.getRented());
 	}
 
 	/**
@@ -94,8 +94,8 @@ public class CatUnitTest {
 	 */
 	@Test
 	public void testToString() {
-		// TODO: Fill in
-	}
+		assertEquals("Cat toString should return \"ID 1. Jennyanydots\"", "ID 1. Jennyanydots", c.toString());
+    }
 
 	/**
 	 * Test case for int rentCat().
@@ -109,7 +109,8 @@ public class CatUnitTest {
 	 */
 	@Test
 	public void testRentCat() {
-		// TODO: Fill in
+		c.rentCat();
+        assertTrue("Cat should be marked as rented after calling rentCat()", c.getRented());
 	}
 
 	/**
@@ -125,7 +126,9 @@ public class CatUnitTest {
 	 */
 	@Test
 	public void testReturnCat() {
-		// TODO: Fill in
+		c.rentCat();
+        c.returnCat();
+        assertFalse("Cat should not be rented after calling returnCat()", c.getRented());
 	}
 
 	/**
@@ -140,7 +143,9 @@ public class CatUnitTest {
 	 */
 	@Test
 	public void testRenameCat() {
-		// TODO: Fill in
+		c.renameCat("Garfield");
+        assertEquals("Cat name should be updated to Garfield", "Garfield", c.getName());
+        assertEquals("Cat toString should reflect the new name", "ID 1. Garfield", c.toString());
 	}
 
 }
