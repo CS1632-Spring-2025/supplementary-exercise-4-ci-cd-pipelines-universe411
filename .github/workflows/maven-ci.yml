@@ -73,3 +73,18 @@ jobs:
     # https://github.com/marketplace/actions/maven-dependency-tree-dependency-submission
     - name: Update dependency graph
       uses: advanced-security/maven-dependency-submission-action@v3
+
+  sonarqube_analysis:
+    needs: [maven_test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restore cached build
+        uses: actions/cache@v3
+        with:
+          key: cached-build-${{ github.sha }}
+          path: .
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          args: >
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
